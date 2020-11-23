@@ -1,31 +1,21 @@
 use std::io;
 
 fn main() {
-    let message: String = String::from("We are learning at Lead University!");
-    let key: String = String::from("bfckswqpaoxmgloeritucaswurnfhsxcmlo");
+    let message: String = String::from("abcdefghijklmnopqrstuvwxyz");
+    let key: String = String::from("abcdefghijklmnopqrstuvwxyz");
 
-    let alphabet: [char; 104] = [
+    let alphabet: [char; 52] = [
         'a', 'b', 'c', 'd', 'e',
         'f', 'g', 'h', 'i', 'j',
         'k', 'l', 'm', 'n', 'o',
         'p', 'q', 'r', 's', 't',
         'u', 'v', 'w', 'x', 'y',
-        'z', 'a', 'b', 'c', 'd',
-        'e', 'f', 'g', 'h', 'i',
-        'j', 'k', 'l', 'm', 'n',
-        'o', 'p', 'q', 'r', 's',
-        't','u', 'v', 'w', 'x',
-        'y', 'z', 'a', 'b', 'c',
-        'd', 'e','f', 'g', 'h',
-        'i', 'j', 'k', 'l', 'm',
-        'n', 'o', 'p', 'q', 'r',
-        's', 't', 'u', 'v', 'w',
-        'x', 'y', 'z', 'a', 'b',
-        'c', 'd', 'e', 'f', 'g',
-        'h', 'i', 'j', 'k', 'l',
-        'm', 'n', 'o', 'p', 'q',
-        'r', 's', 't','u', 'v',
-        'w', 'x', 'y', 'z'
+        'z', 'd', 'g', 'b', 'a',
+        'i', 'h', 'c', 'f', 'e',
+        'n', 'm', 'q', 'k', 'j',
+        's', 'r', 'l', 'p', 'o',
+        'x','w', 'z', 'u', 't',
+        'v', 'y',
     ];
 
     let expanded_key: String = prng(key, alphabet);
@@ -41,7 +31,7 @@ fn main() {
     println!("Thank you for use Stream Cipher simulator!");
 }
 
-fn prng(key: String, alphabet: [char; 104]) -> String {
+fn prng(key: String, alphabet: [char; 52]) -> String {
 
     let key_char: Vec<char> = key.chars().collect();
     let mut key_expanded: String = String::new();
@@ -59,7 +49,7 @@ fn prng(key: String, alphabet: [char; 104]) -> String {
         if key_char[i] == " ".parse().unwrap(){
             key_expanded.push("@".parse().unwrap());
         }
-        key_expanded.push(alphabet[(count/2)*3+5/2].to_string().parse().unwrap());
+        key_expanded.push(alphabet[count+26].to_string().parse().unwrap());
 
         i = i + 1;
     }
