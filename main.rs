@@ -1,8 +1,11 @@
 use std::io;
+use rand::{thread_rng, Rng};
+use rand::distributions::Alphanumeric;
+use rand::SeedableRng;
 
 fn main() {
-    let message: String = String::from("abcdefghijklmnopqrstuvwxyz");
-    let key: String = String::from("abcdefghijklmnopqrstuvwxyz");
+    let message: String = String::from("Hello Wordl!");
+    let key: String = String::from("dgjuc");
 
     let alphabet: [char; 52] = [
         'a', 'b', 'c', 'd', 'e',
@@ -18,20 +21,32 @@ fn main() {
         'v', 'y',
     ];
 
-    let expanded_key: String = prng(key, alphabet);
+    let mut expanded_key: String = shuffled(key, alphabet);
+    expanded_key = prng(expanded_key, message.len() as usize);
+
     println!("{}", expanded_key);
 
     let ciphertext: String = encrypt(message, expanded_key);
     println!("Hi, here is the ciphertext: {} ", ciphertext);
 
-    let key_two: String = enter_key();
+     let key_two: String = enter_key();
 
-    let message_decrypt: String = decrypt(ciphertext, key_two);
-    println!("Hi, your message is: {} ", message_decrypt);
-    println!("Thank you for use Stream Cipher simulator!");
+     let message_decrypt: String = decrypt(ciphertext, key_two);
+     println!("Hi, your message is: {} ", message_decrypt);
+     println!("Thank you for use Stream Cipher simulator!");
 }
 
-fn prng(key: String, alphabet: [char; 52]) -> String {
+fn prng(expanded_key:String, len_m:usize) -> String{
+
+    let rand: String = rand_pcg::Pcg32::seed_from_u64(123)
+        .sample_iter(&Alphanumeric)
+        .take(len_m - expanded_key.len() as usize)
+        .collect();
+
+    expanded_key + rand.as_str()
+}
+
+fn shuffled(key: String, alphabet: [char; 52]) -> String {
 
     let key_char: Vec<char> = key.chars().collect();
     let mut key_expanded: String = String::new();
@@ -53,7 +68,8 @@ fn prng(key: String, alphabet: [char; 52]) -> String {
 
         i = i + 1;
     }
-    return key_expanded;
+
+    key_expanded
 }
 
 
