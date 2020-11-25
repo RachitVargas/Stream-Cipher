@@ -4,8 +4,8 @@ use rand::distributions::Alphanumeric;
 use rand::SeedableRng;
 
 fn main() {
-    let message: String = String::from("Hello Wordl!");
-    let key: String = String::from("dgjuc");
+    let message: String = String::from("Hi, world. We are learning cryptography at Lead University");
+    let key: String = String::from("ajt");
 
     let alphabet: [char; 52] = [
         'a', 'b', 'c', 'd', 'e',
